@@ -1,0 +1,17 @@
+# One-click deploy to Render.com (free tier works fine)
+# Render -> Dashboard -> New -> Blueprint -> connect your GitHub repo containing
+# app.py, requirements.txt and this Dockerfile. That's it.
+services:
+  - type: web
+    name: ytwav-api
+    runtime: docker
+    dockerfilePath: ./Dockerfile
+    plan: free
+    healthCheckPath: /api/health
+    envVars:
+      - key: YTWAV_CORS_ORIGINS
+        value: "*"
+      - key: YTWAV_MAX_DURATION
+        value: "7200"
+      - key: YTWAV_FILE_TTL
+        value: "600"
